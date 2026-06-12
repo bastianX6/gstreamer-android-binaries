@@ -39,13 +39,13 @@ done
 
 mkdir -p "$DIST_DIR"
 
-# Determine version
+# Determine version (prefer VERSION file over versions.txt GStreamer version)
 release_version=""
-if [[ -f "${ARTIFACTS_DIR}/versions.txt" ]]; then
-    release_version="$(awk '/^GStreamer:/ { print $2 }' "${ARTIFACTS_DIR}/versions.txt")"
-fi
-if [[ -z "$release_version" ]] && [[ -f "$VERSION_FILE" ]]; then
+if [[ -f "$VERSION_FILE" ]]; then
     release_version="$(awk 'NF { print $1; exit }' "$VERSION_FILE")"
+fi
+if [[ -z "$release_version" ]] && [[ -f "${ARTIFACTS_DIR}/versions.txt" ]]; then
+    release_version="$(awk '/^GStreamer:/ { print $2 }' "${ARTIFACTS_DIR}/versions.txt")"
 fi
 [[ -n "$release_version" ]] || error "Cannot determine release version"
 

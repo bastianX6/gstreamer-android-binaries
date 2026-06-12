@@ -246,6 +246,15 @@ ABIs: ${ABIS}
 G_IO_MODULES: ${G_IO_MODULES}
 BuildDate: $(date -u '+%Y-%m-%dT%H:%M:%SZ')
 EOF
+
+    # Copy headers (architecture-independent, from arm64)
+    if [[ -d "${GST_DIR}/arm64/include" ]]; then
+        info "Copying headers from sdk/arm64/include..."
+        rm -rf "${ARTIFACTS_DIR}/include"
+        cp -R "${GST_DIR}/arm64/include" "${ARTIFACTS_DIR}/include"
+        info "Headers: $(find "${ARTIFACTS_DIR}/include" -name '*.h' | wc -l) .h files"
+    fi
+
     info "Generated versions.txt"
 }
 
