@@ -255,6 +255,14 @@ EOF
         info "Headers: $(find "${ARTIFACTS_DIR}/include" -name '*.h' | wc -l) .h files"
     fi
 
+    # Copy glibconfig.h from lib/ (not in include/, arch-independent from arm64)
+    local glibconfig_src="${GST_DIR}/arm64/lib/glib-2.0/include/glibconfig.h"
+    if [[ -f "$glibconfig_src" ]]; then
+        mkdir -p "${ARTIFACTS_DIR}/include/glib-2.0/include"
+        cp "$glibconfig_src" "${ARTIFACTS_DIR}/include/glib-2.0/include/glibconfig.h"
+        info "Copied glibconfig.h"
+    fi
+
     info "Generated versions.txt"
 }
 
