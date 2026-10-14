@@ -3,3 +3,4 @@ dist/
 sdk/
 *.tar.xz
 .DS_Store
+gst-android-build/
